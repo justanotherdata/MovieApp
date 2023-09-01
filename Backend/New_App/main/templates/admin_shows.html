@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block content %} 
+<div class="container">
+    <div class = 'row'>
+        <p>On this page, the admin will have the ability to cancel the shows.</p>
+    {% if status == 'active_shows' %}
+        <div class="container">
+            <h1>This is the Shows page!</h1>
+            <div class = 'container'>
+                <a href="{{ url_for('active_shows', user_id=current_user.UID) }}" class="btn btn-primary">Active Shows</a>
+                <a href="{{ url_for('inactive_shows', user_id=current_user.UID) }}" class="btn btn-secondary">Inctive Shows</a>   
+            </div> 
+            <br>
+        </div>
+        <table width="600px">
+            <tr>
+                <th>Movie Name</th>
+                <th>Theatre Name</th>
+                <th>Show Time</th>
+                <th>Booked Seats</th>
+                <th>Cancel Show</th>
+            </tr>
+        <br>   
+        {% for show in shows %}
+            {% if show.Show_Status %}
+            <tr>
+                <td>{{ show.movie.Mov_Name }}</td>
+                <td>{{ show.theatre.The_Name }}</td>
+                <td>{{ show.Show_Time }}</td>
+                <td>{{ show.Booked_Seats }}</td>
+                <td><a href="{{ url_for('deactivate_show', Show_Id= show.Show_Id, movie_id = mov_id ) }}" class="btn btn-danger">Deactivate</a></td>
+            </tr> 
+            {% endif %}
+        {% endfor %}
+        </table>
+        <br>
+        <div>
+            <a href="{{ url_for('create_shows') }}">
+                <button class="btn btn-primary">Add Show</button>
+            </a>
+            <br>
+        </div>
+    
+
+    {% elif status=='inactive_shows' %}
+    <div class="container">
+        <h1>This is the Shows page!</h1>
+        <div class = 'container'>
+            <a href="{{ url_for('active_shows', user_id=current_user.UID) }}" class="btn btn-primary">Active Shows</a>
+            <a href="{{ url_for('inactive_shows', user_id=current_user.UID) }}" class="btn btn-secondary">Inctive Shows</a>   
+        </div> 
+        <br>
+    </div>
+    <table width="600px">
+        <tr>
+            <th>Movie Name</th>
+            <th>Theatre Name</th>
+            <th>Show Time</th>
+            <th>Booked Seats</th>
+            <th>Cancel Show</th>
+        </tr>
+    <br>   
+    {% for show in shows %}
+        {% if not show.Show_Status %}
+        <tr>
+            <td>{{ show.movie.Mov_Name }}</td>
+            <td>{{ show.theatre.The_Name }}</td>
+            <td>{{ show.Show_Time }}</td>
+            <td>{{ show.Booked_Seats }}</td>
+            <td><a href="{{ url_for('activate_show', Show_Id= show.Show_Id, movie_id = mov_id ) }}" class="btn btn-success">Activate</a></td>
+        </tr> 
+        {% endif %}
+    {% endfor %}
+    </table>
+
+    {% elif status=='all_shows' %}
+    <div class="container">
+        <h1>This is the Shows page!</h1> 
+        <br>
+    </div>
+    <table width="600px">
+        <tr>
+            <th>Movie Name</th>
+            <th>Theatre Name</th>
+            <th>Show Time</th>
+            <th>Booked Seats</th>
+            <th>Cancel Show</th>
+        </tr>
+    <br> 
+        {% for show in shows %}
+        <tr>
+            <td>{{ show.movie.Mov_Name }}</td>
+            <td>{{ show.theatre.The_Name }}</td>
+            <td>{{ show.Show_Time }}</td>
+            <td>{{ show.Booked_Seats }}</td>  
+            <td>
+                {% if show.Show_Status %}
+                    <a href="{{ url_for('deactivate_show', Show_Id= show.Show_Id, movie_id = show.movie.Mov_Id ) }}" class="btn btn-danger">
+                        Dectivate
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('activate_show', Show_Id= show.Show_Id, movie_id = show.movie.Mov_Id ) }}" class="btn btn-success">
+                        Activate
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </table>
+        
+        
+    {% endif %}
+    
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+

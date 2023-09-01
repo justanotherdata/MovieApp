@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1>Super-Admin Registration Page</h1>
+    <form method = "post", action="">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+                <p>
+                    {{ form.Name.label(class='form-control-label') }}
+                </p>
+                {% if form.Name.errors %}
+                    {{ form.Name(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.Name.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+                {% else %}
+                <p>
+                    {{ form.Name(class='form-control form-control-lg') }}
+                </p>
+                {% endif %}
+                
+                
+        </div>
+        <div class="form-group">
+            <p>
+                {{ form.Email.label(class='form-control-label') }}
+            </p>
+            {% if form.Email.errors %}
+                    {{ form.Email(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.Email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+            {% else %}
+            <p>
+                {{ form.Email(class='form-control form-control-lg') }}
+            </p>
+            {% endif %}
+            
+            
+        </div>
+        <div class="form-group">
+            <p>
+                {{ form.Password.label(class='form-control-label') }}
+            </p>
+            {% if form.Password.errors %}
+                    {{ form.Password(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.Password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+            {% else %}
+            <p>
+                {{ form.Password(class='form-control form-control-lg') }}
+            </p>
+            {% endif %}
+            
+            
+        </div>
+        <div class="form-group">
+            <p>
+                {{ form.Confirm_Password.label(class='form-control-label') }}
+            </p>
+            {% if form.Confirm_Password.errors %}
+                    {{ form.Confirm_Password(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.Confirm_Password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+            {% else %}
+            <p>
+                {{ form.Confirm_Password(class='form-control form-control-lg') }}
+            </p>
+            {% endif %}
+           
+            
+        </div>
+        {{ form.Submit(class="btn btn-primary") }} 
+        
+    </form>
+    <span>
+        <small>
+            Already Have an Account? <a href="{{ url_for('login_superadmin') }}">
+                Login Here!
+            </a>
+        </small>
+    </span>
+</div>
+{% endblock %}

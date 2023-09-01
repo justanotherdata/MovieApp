@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}   
+<div class="container">
+    <h1>Admin Management Page</h1>
+    {% for admin in admins %}
+    <div class="container-fluid">
+        <li class = 'row'>
+            <span class = "col-4">
+                <bold>
+                    {{admin.UID}} : {{ admin.Email }} 
+                </bold>
+            </span>
+            <span class = 'col-8'>
+                
+                <a href="{{ url_for('get_admin', admin_id= admin.UID) }}">
+                    <button class = 'btn btn-primary'>
+                        View Admin
+                    </button>
+                </a>
+                
+                
+                <a href="{{ url_for('edit_admin', admin_id= admin.UID) }}">
+                    <button class = 'btn btn-secondary'> Edit</button>
+                </a>
+                
+                 
+                <a href="{{ url_for('delete_admin', admin_id= admin.UID) }}">
+                    <button class = 'btn btn-danger'>Delete</button>    
+                </a>
+                
+            </span>  
+        </li>
+    </br>
+    </div> 
+    {% endfor %}
+</div>
+{% endblock %}

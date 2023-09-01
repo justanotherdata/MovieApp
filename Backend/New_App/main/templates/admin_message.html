@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %} 
+<div class="container">
+    <h1>Message Page!</h1>
+    {% if message %}
+        <h3>
+            {{ message }}
+        </h3>
+    {% endif %}
+</div>
+
+{% endblock %}

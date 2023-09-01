@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block content %}   
+<div class="container">
+    <h1>This is the Movies page!</h1>
+    <br>
+    <div class = 'row'>
+    {% if status == 'active' %}
+        <div class = 'container'>
+            <a href="{{ url_for('active_movies', user_id=current_user.UID) }}" class="btn btn-primary">Active Movies</a>
+            <a href="{{ url_for('inactive_movies', user_id=current_user.UID) }}" class="btn btn-secondary">Inctive Movies</a> 
+        </div> 
+        <h4>Showing <u>Active Movies!</u></h4>
+        <br>
+        <table width="600px">
+            <tr>
+                <th>Movie Id</th>
+                <th>Name</th>
+                <th>Rating</th>
+                <th>All Shows</th>
+                <th>Deactivate</th>
+            </tr>
+        <br>
+        {% for movie in movies %}
+            {% if movie.Mov_Status %}
+                    <tr>
+                        <td>{{ movie.Mov_Id }}</td>
+                        <td>{{ movie.Mov_Name }}</td>
+                        <td>{{ movie.Mov_Rating }}</td>
+                        <td><a href="{{ url_for('all_shows', movie_id = movie.Mov_Id) }}" class="btn btn-secondary">Get shows</a></td>
+                        <td><a href="{{ url_for('deactivate_movie', Mov_Id = movie.Mov_Id, the_Id = the_id) }}" class="btn btn-danger">Deactivate</a></td>
+                    </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+        <a href="{{ url_for('create_movies') }}">
+            <button class="btn btn-primary">Add movie</button>
+        </a>
+        <br>
+        
+
+    {% elif status == 'inactive' %}
+        <div class = 'container'>
+            <a href="{{ url_for('active_movies', user_id=current_user.UID) }}" class="btn btn-primary">Active Movies</a>
+            <a href="{{ url_for('inactive_movies', user_id=current_user.UID) }}" class="btn btn-secondary">Inctive Movies</a> 
+            <br>  
+        </div>
+        <h4>Showing <u>Inactive Movies!</u></h4>
+        <br>
+        <table width="600px">
+            <tr>
+                <th>Movie Id</th>
+                <th>Name</th>
+                <th>Rating</th>
+                <th>All Shows</th>
+                <th>Deactivate</th>
+            </tr>
+        <br>
+        {% for movie in movies %}
+            {% if not movie.Mov_Status %}
+                    <tr>
+                        <td>{{ movie.Mov_Id }}</td>
+                        <td>{{ movie.Mov_Name }}</td>
+                        <td>{{ movie.Mov_Rating }}</td>
+                        <td><a href="{{ url_for('all_shows', movie_id = movie.Mov_Id) }}" class="btn btn-secondary">Get shows</a></td>
+                        <td><a href="{{ url_for('activate_movie', mov_Id = movie.Mov_Id, the_Id = the_id) }}" class="btn btn-success">Activate</a></td>
+                    </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+        
+
+    {% elif status == 'active_the' %}
+        
+        <h4>Showing All Movies for Theatre Id: {{ th_id }}</u></h4>
+        <br>
+        <table width="600px">
+            <tr>
+                <th>Movie Id</th>
+                <th>Name</th>
+                <th>Rating</th>
+                <th>Time</th>
+                <th>All Shows</th>
+                <th>Deactivate</th>
+            </tr>
+        <br>
+        {% for show in shows %}
+        <tr>
+            <td>{{ show.movie.Mov_Id }}</td>
+            <td>{{ show.movie.Mov_Name }}</td>
+            <td>{{ show.movie.Mov_Rating }}</td>
+            <td>{{ show.Show_Time }}</td>
+            <td><a href="{{ url_for('all_shows', movie_id = show.movie.Mov_Id) }}" class="btn btn-secondary">Get shows</a></td>
+            <td>
+                {% if show.movie.Mov_Status %}
+                <a href="{{ url_for('deactivate_movie', Mov_Id = show.movie.Mov_Id, the_Id = show.The_Id) }}" class="btn btn-danger">
+                    Deactivate
+                </a>
+                {% else %}
+                <a href="{{ url_for('activate_movie', mov_Id = show.movie.Mov_Id, the_Id = show.The_Id) }}" class="btn btn-success">
+                    Activate
+                </a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+        <a href="{{ url_for('create_movies') }}">
+            <button class="btn btn-primary">Add movie</button>
+        </a>
+        <br>    
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

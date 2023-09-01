@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}   
+<div class="container">
+    <h1>This is the theatres page!</h1>
+    <br>
+    <div class = 'container'>
+        <a href="{{ url_for('active_theatres', user_id=current_user.UID) }}" class="btn btn-primary">Active Theatres</a>
+        <a href="{{ url_for('inactive_theatres', user_id=current_user.UID) }}" class="btn btn-secondary">Inctive Theatres</a>   
+    </div> 
+    <br>
+    <div class="row">
+        {% if status %}
+            <h4>Showing <u>Active Theatres!</u></h4>
+            <table width="600px">
+                <tr>
+                    <th>Theatre Id</th>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>All Movies</th>
+                    <th>Deactivate</th>
+                </tr>
+            <br>
+            {% for theatre in theatres %}
+                {% if theatre.The_Status %}
+                        <tr>
+                            <td>{{ theatre.The_Id }}</td>
+                            <td>{{ theatre.The_Name }}</td>
+                            <td>{{ theatre.The_Location }}</td>
+                            <td><a href="{{ url_for('all_active_movies_theatres', Theatre_Id=theatre.The_Id) }}" class="btn btn-secondary">Get Movies</a></td>
+                            <td><a href="{{ url_for('deactivate_theatre', The_Id = theatre.The_Id) }}" class="btn btn-danger">Deactivate</a></td>
+                        </tr>
+                {% endif %}
+            {% endfor %}
+            </table>
+            
+        {% else %}
+            <h4>Showing <u>Inactive Theatres!</u></h4>
+            <table width="600px">
+                <tr>
+                    <th>Theatre Id</th>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>All Movies</th>
+                    <th>Deactivate</th>
+                </tr>
+            <br>
+            {% for theatre in theatres %}
+                {% if not theatre.The_Status %}
+                        <tr>
+                            <td>{{ theatre.The_Id }}</td>
+                            <td>{{ theatre.The_Name }}</td>
+                            <td>{{ theatre.The_Location }}</td>
+                            <td><a href="{{ url_for('all_active_movies_theatres', Theatre_Id=theatre.The_Id) }}" class="btn btn-secondary">Get Movies</a></td>
+                            <td><a href="{{ url_for('activate_theatre', The_Id = theatre.The_Id) }}" class="btn btn-success">Activate</a></td>
+                        </tr>
+                {% endif %}
+            {% endfor %}
+            {% endif %}      
+            </table>
+            {% if status %}
+                <br>
+                <a href="{{ url_for('create_theatres') }}">
+                    <button class="btn btn-primary">Add Theatre</button>
+                </a> 
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}

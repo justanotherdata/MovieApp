@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}   
+<div class="container">
+    <h1>Hello, {{ title }}</h1>
+    <h2>Welcome to your dashboard!
+    <div>
+      <a href="{{ url_for('generate_and_send_csv_', id=current_user.UID) }}">
+        <button class="btn btn-primary"> Download All Data </button>
+      </a>
+    </div></h2>
+    <br>
+  
+    <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Active Theatres</h5>
+              <p class="card-text">You have {{ theatre_count }} active theatres!</p>
+              <a href="{{ url_for('active_theatres', user_id=current_user.UID) }}" class="btn btn-primary">All Theatres</a>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Active Movies</h5>
+              <p class="card-text">You have {{ movie_count }} active movies!</p>
+              <a href="{{ url_for('active_movies', user_id=current_user.UID) }}" class="btn btn-primary">All Movies</a>
+            </div>
+          </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Active Shows</h5>
+              <p class="card-text">You have {{ show_count }} active shows!</p>
+              <a href="{{ url_for('active_shows', user_id=current_user.UID) }}" class="btn btn-primary">All Shows</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Booked Tickets</h5>
+              <p class="card-text">You have {{ booked_tkts }} active bookings!</p>
+              <a href="{{ url_for('get_active_bookings', user_id=current_user.UID) }}" class="btn btn-primary">All Bookings</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</div>
+{% endblock %}

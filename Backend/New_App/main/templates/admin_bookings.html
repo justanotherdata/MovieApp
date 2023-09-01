@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}   
+<div class="container">
+    <h1>This is the Bookings page!</h1>
+    <div class = 'container'>
+        <a href="{{ url_for('get_active_bookings', user_id=current_user.UID) }}" class="btn btn-primary">Active Bookings</a>
+        <a href="{{ url_for('get_inactive_bookings', user_id=current_user.UID) }}" class="btn btn-secondary">Inctive Bookings</a>   
+    </div> 
+    <br>
+</div>
+    
+
+{% if status %}
+<table width="600px">
+    <tr>
+        <th>Name</th>
+        <th>Movie</th>
+        <th>Seats</th>
+        <th>Show Time</th>
+        <th>Cancel</th>
+    </tr>
+<br>
+    {% for booking in bookings %}
+        {% for tkts in booking.booked_shows %}
+            {% if tkts.Booked_Status and not tkts.Cancellation_Status %}
+                <tr>
+                    <td>{{ tkts.users.Name }}</td>
+                    <td>{{ booking.movie.Mov_Name }}</td>
+                    <td>{{ tkts.Num_Of_Seats }}</td>
+                    <td>{{ booking.Show_Time }}</td>
+                    <td><a href="{{ url_for('cancel_user_tkt', Booking_Id= tkts.Book_Id ) }}" class="btn btn-danger">Cancel</a></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
+{% else %}
+<table width="600px">
+    <tr>
+        <th>Name</th>
+        <th>Movie</th>
+        <th>Seats</th>
+        <th>Show Time</th>
+    </tr>
+<br>
+    {% for booking in bookings %}
+        {% for tkts in booking.booked_shows %}
+            {% if tkts.Booked_Status and tkts.Cancellation_Status %}
+                <tr>
+                    <td>{{ tkts.users.Name }}</td>
+                    <td>{{ booking.movie.Mov_Name }}</td>
+                    <td>{{ tkts.Num_Of_Seats }}</td>
+                    <td>{{ booking.Show_Time }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}  
+{% endif %}      
+</table>
+
+
+
+
+
+{% endblock %}

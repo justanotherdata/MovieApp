@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <h1>Login Page</h1>
+    <form method = "post" action="">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <p>
+                {{ form.Email.label(class='form-control-label') }}
+            </p>
+            {% if form.Email.errors %}
+                    {{ form.Email(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.Email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+            {% else %}
+            <p>
+                {{ form.Email(class='form-control form-control-lg') }}
+            </p>
+            {% endif %}
+              
+        </div>
+        <div class="form-group">
+            <p>
+                {{ form.Password.label(class='form-control-label') }}
+            </p>
+            {% if form.Password.errors %}
+                    {{ form.Password(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.Password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+            {% else %}
+            <p>
+                {{ form.Password(class='form-control form-control-lg') }}
+            </p>
+            {% endif %}
+        </div>
+        <div class="form-check">
+            {{ form.Remember(class="form-check-input") }}
+            {{ form.Remember.label(class="form-check-lebel") }}
+        </div>
+        {{ form.Submit(class="btn btn-primary") }}
+        <small class="text-muted ml-2">
+            <a href="#">Forgot Password?</a>
+        </small>
+    </form>
+    <span>
+        <!---
+            <small>
+            New User? <a href="{{ url_for('register_superadmin') }}">
+                Register Here!
+            </a>
+        </small>
+        -->
+        
+    </span>
+</div>
+{% endblock %}

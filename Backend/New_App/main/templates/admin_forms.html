@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    
+    <form method = "post" action="">
+        {% if name=='Movies' %}
+            {{ form.hidden_tag() }}
+            <h1>Add Movies</h1>
+            <div class="form-group">
+                <p>
+                    {{ form.Name.label(class='form-control-label') }}
+                </p>
+                {% if form.Name.errors %}
+                        {{ form.Name(class='form-control form-control-lg is-invalid') }}
+                        <div class="invalid-feedback">
+                            {% for error in form.Name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+
+                {% else %}
+                <p>
+                    {{ form.Name(class='form-control form-control-lg') }}
+                </p>
+                {% endif %}
+                
+            </div>
+            <div class="form-group">
+                <p>
+                    {{ form.Rating.label(class='form-control-label') }}
+                </p>
+                {% if form.Rating.errors %}
+                        {{ form.Rating(class='form-control form-control-lg is-invalid') }}
+                        <div class="invalid-feedback">
+                            {% for error in form.Rating.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                {% else %}
+                <p>
+                    {{ form.Rating(class='form-control form-control-lg') }}
+                </p>
+                {% endif %}
+            </div>
+            {{ form.Submit(class="btn btn-primary") }}
+            <small class="text-muted ml-2">
+                <a href="{{ url_for('create_shows') }}">Add a Show?</a>
+                <b>|</b>
+                <a href="{{ url_for('create_theatres') }}">Add a Theatre?</a>
+            </small>
+        {% elif name=='Theatres' %}
+        {{ form.hidden_tag() }}
+        <h1>Add Theatre</h1>
+        <div class="form-group">
+            <p>
+                {{ form.Name.label(class='form-control-label') }}
+            </p>
+            {% if form.Name.errors %}
+                    {{ form.Name(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.Name.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+            {% else %}
+            <p>
+                {{ form.Name(class='form-control form-control-lg') }}
+            </p>
+            {% endif %}
+            
+        </div>
+        <div class="form-group">
+            <p>
+                {{ form.Location.label(class='form-control-label') }}
+            </p>
+            {% if form.Location.errors %}
+                    {{ form.Location(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.Location.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+            {% else %}
+            <p>
+                {{ form.Location(class='form-control form-control-lg') }}
+            </p>
+            {% endif %}
+        </div>
+        {{ form.Submit(class="btn btn-primary") }}
+
+        <small class="text-muted ml-2">
+            <a href="{{ url_for('create_movies') }}">Add a Movie?</a>
+            <b>|</b>
+            <a href="{{ url_for('create_shows') }}">Add a Show?</a>
+        </small>
+
+        {% elif name=='Shows' %}
+        {{ form.hidden_tag() }}
+        <h1>Add Show</h1>
+        <div class="form-group">
+            <p>
+                {{ form.The_Name.label(class='form-control-label') }}
+            </p>
+            {% if form.The_Name.errors %}
+                    {{ form.The_Name(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.The_Name.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+            {% else %}
+            <p>
+                {{ form.The_Name(class='form-control form-control-lg') }}
+            </p>
+            {% endif %}
+            
+        </div>
+        <div class="form-group">
+            <p>
+                {{ form.Mov_Name.label(class='form-control-label') }}
+            </p>
+            {% if form.Mov_Name.errors %}
+                    {{ form.Mov_Name(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.Mov_Name.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+            {% else %}
+            <p>
+                {{ form.Mov_Name(class='form-control form-control-lg') }}
+            </p>
+            {% endif %}
+            
+        </div>
+
+
+
+        <div class="form-group">
+            <p>
+                {{ form.Total_Seats.label(class='form-control-label') }}
+            </p>
+            {% if form.Total_Seats.errors %}
+                    {{ form.Total_Seats(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.Total_Seats.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+            {% else %}
+            <p>
+                {{ form.Total_Seats(class='form-control form-control-lg') }}
+            </p>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <p>
+                {{ form.Time.label(class='form-control-label') }}
+            </p>
+            {% if form.Time.errors %}
+                    {{ form.Time(class='form-control form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.Time.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+            {% else %}
+            <p>
+                {{ form.Time(class='form-control form-control-lg') }}
+            </p>
+            {% endif %}
+        </div>
+
+        {{ form.Submit(class="btn btn-primary") }}
+
+        <small class="text-muted ml-2">
+            <a href="{{ url_for('create_movies') }}">Add a Movie?</a>
+            <b>|</b>
+            <a href="{{ url_for('create_theatres') }}">Add a Theatre?</a>
+
+        </small>
+
+        {% else %}
+            <h1>This will load if no other data loads! </h1>
+
+        {% endif %}
+    </form>
+    <span>
+        <!---
+            <small>
+            New User? <a href="{{ url_for('register_superadmin') }}">
+                Register Here!
+            </a>
+        </small>
+        -->
+        
+    </span>
+</div>
+{% endblock %}
